@@ -17,31 +17,435 @@
       name="viewport"
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
+    <style>
+      /* Global Font Styles */
+      body {
+        font-family: 'Inter', sans-serif;
+        letter-spacing: 0.3px;
+        line-height: 1.6;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+      }
+
+      p {
+        font-weight: 400;
+        line-height: 1.8;
+      }
+
+      .major h2 {
+        font-size: 2.2em;
+        margin-bottom: 0.5em;
+        color: #4acaa8;
+      }
+
+      .feature-item h3 {
+        font-size: 1.4em;
+        margin: 0.5em 0;
+        color: #333;
+      }
+
+      .feature-item p {
+        font-size: 0.95em;
+        color: #666;
+        margin: 0.15em 0;
+        line-height: 1.5;
+        padding: 0 0.5em;
+      }
+
+      #header h1 {
+        font-size: 2.5em;
+        margin-bottom: 0.3em;
+        letter-spacing: 1px;
+      }
+
+      #header p {
+        font-size: 1.1em;
+        font-weight: 400;
+      }
+
+      .statistics li {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+      }
+
+      .statistics strong {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+      }
+
+      #nav {
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to right, rgba(255, 182, 193, 0.1), rgba(74, 202, 168, 0.1));
+        padding: 0.5em 0;
+        border-radius: 30px;
+        margin: 0 1em;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      #nav ul {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 0;
+        margin: 0;
+      }
+
+      #nav li {
+        flex: 1;
+        text-align: center;
+        white-space: nowrap;
+        padding: 0 0.5em;
+        position: relative;
+      }
+
+      #nav a {
+        font-size: 0.9em;
+        padding: 0.5em 0.3em;
+        color: #666;
+        transition: all 0.3s ease;
+        position: relative;
+        font-weight: 500;
+      }
+
+      #nav a:hover {
+        color: #4acaa8;
+      }
+
+      #nav a.active {
+        color: #4acaa8;
+        font-weight: 600;
+      }
+
+      #nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background: #4acaa8;
+        border-radius: 2px;
+      }
+
+      #nav a::before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 20px;
+        height: 2px;
+        background: #4acaa8;
+        transition: transform 0.3s ease;
+        border-radius: 2px;
+      }
+
+      #nav a:hover::before {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      #footer h2 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+      }
+
+      #footer p, #footer a {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+      }
+
+      .button {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        border-bottom: 1px dotted #4acaa8;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 250px;
+        background-color: #4acaa8;
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #4acaa8 transparent transparent transparent;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      #easter-egg {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #ff69b4, #4acaa8);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 25px;
+        font-size: 1.1em;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-family: 'Inter', sans-serif;
+        letter-spacing: 0.5px;
+        line-height: 1.6;
+        font-weight: 500;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      #easter-egg.show {
+        opacity: 1;
+        visibility: visible;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% { transform: translateX(-50%) translateY(0px); }
+        50% { transform: translateX(-50%) translateY(-10px); }
+        100% { transform: translateX(-50%) translateY(0px); }
+      }
+
+      #easter-egg::before {
+        content: '✨';
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: sparkle 1.5s ease-in-out infinite;
+      }
+
+      #easter-egg::after {
+        content: '✨';
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: sparkle 1.5s ease-in-out infinite;
+      }
+
+      @keyframes sparkle {
+        0% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+        50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+      }
+
+      /* Features Grid Styles */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em !important;
+        justify-items: center;
+      }
+
+      .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+      }
+
+      .feature-item .img {
+        width: 100%;
+        margin-bottom: 0.4em !important;
+        height: 150px !important;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f8;
+        border-radius: 8px;
+      }
+
+      .feature-item .img img,
+      .feature-item .img video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .feature-item .img img {
+        object-fit: contain;
+      }
+
+      .feature-item h3 {
+        font-size: 1.2em;
+        margin: 0.15em 0;
+        color: #333;
+      }
+
+      .feature-item .text-content {
+        padding: 0 0.2em;
+        max-width: 90%;
+      }
+
+      .feature-item b {
+        display: block;
+        margin-top: 0.5em;
+        color: #4acaa8;
+      }
+
+      /* Section Spacing */
+      .main.special {
+        padding: 1.2em 0;
+      }
+
+      .main.special header {
+        margin-bottom: 1em;
+      }
+
+      .main.special h3 {
+        margin-bottom: 0.6em;
+        font-size: 1.4em;
+        color: #4acaa8;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.2em;
+      }
+
+      /* Section Dividers */
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #4acaa8, transparent);
+        margin: 1.2em 0;
+        opacity: 0.3;
+      }
+
+      /* Content Spacing */
+      .spotlight {
+        margin-bottom: 1em;
+      }
+
+      .spotlight .content {
+        padding: 0 1em;
+      }
+
+      .spotlight p {
+        margin-bottom: 0.8em;
+      }
+
+      .spotlight .image {
+        margin-top: 0.8em;
+      }
+
+      /* Statistics Spacing */
+      .statistics {
+        margin: 1em 0;
+      }
+
+      .statistics li {
+        padding: 0.8em;
+      }
+
+      /* Footer Spacing */
+      #footer {
+        padding: 2em 0;
+      }
+
+      #footer section {
+        padding: 0 1em;
+      }
+
+      #footer h2 {
+        margin-bottom: 0.8em;
+      }
+
+      #footer dl {
+        margin-bottom: 0.8em;
+      }
+    </style>
   </head>
   <body class="is-preload">
     <!-- Wrapper -->
     <div id="wrapper">
+      <!-- Floating Quote Box -->
+      <div id="quote-box" class="quote-container" style="position: fixed !important; bottom: 20px !important; right: 20px !important; z-index: 9999 !important; margin: 0; padding: 1em; border: 2px solid #FFB6C1; background: rgba(255, 255, 255, 0.85); border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; cursor: pointer; position: relative; max-width: 300px; transform: none !important;" onclick="updateQuote()">
+        <div style="position: absolute; top: -10px; left: 20px; background: #FFB6C1; padding: 0 10px; border-radius: 4px; font-size: 0.8em; color: white; font-weight: bold;">Code Joke of the Day</div>
+        <p id="random-quote" style="font-style: italic; color: #333; margin: 0.5em 0 0 0; font-size: 0.9em; line-height: 1.4; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;"></p>
+        <span onclick="toggleQuoteBox(event)" style="position: absolute; top: -8px; right: -8px; background: #FFB6C1; color: white; font-size: 1.2em; cursor: pointer; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">×</span>
+      </div>
+
       <!-- Header -->
-      <header id="header" class="alt">
-        <span class="logo"
-          ><img
-            src="images/icon.JPG"
+      <header id="header" class="alt" style="margin-top: 1em;">
+        <span class="logo">
+          <img
+            src="images/profile1.jpg"
             alt="Yujia(Vivian) Wang"
             width="150px"
             height="150px"
             style="border-radius: 50%"
-        /></span>
+          />
+        </span>
         <h1>Yujia (Vivian) Wang</h1>
-        <p>
-          Driven full-stack software engineer with experience in Java
-          development and data analytics<br />
-          gained through academic projects and internships at Fortune 500
-          companies.
+        <p style="margin-bottom: 1em;">
+          Full-stack engineer with expertise in software, data, and AI solutions.
         </p>
+        <div style="display: flex; justify-content: center; gap: 1em; flex-wrap: wrap; margin-bottom: 1em;">
+          <span style="background: rgba(255, 182, 193, 0.5); padding: 0.4em 1em; border-radius: 20px; font-size: 0.9em; color: #333;">📍 Chicago, Illinois, US</span>
+          <span style="background: rgba(255, 182, 193, 0.5); padding: 0.4em 1em; border-radius: 20px; font-size: 0.9em; color: #333;">🎓 Univeristy of Maryland, College Park</span>
+          <span style="background: rgba(255, 182, 193, 0.5); padding: 0.4em 1em; border-radius: 20px; font-size: 0.9em; color: #333;">💼 Open to Work</span>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 0.8em; flex-wrap: wrap; margin-bottom: 1em;">
+          <span style="background: rgba(255, 182, 193, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Java</span>
+          <span style="background: rgba(74, 202, 168, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">SpringBoot</span>
+          <span style="background: rgba(255, 159, 64, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Python</span>
+          <span style="background: rgba(54, 162, 235, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">SQL</span>
+          <span style="background: rgba(153, 102, 255, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Node.js</span>
+          <span style="background: rgba(75, 192, 192, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">React</span>
+          <span style="background: rgba(255, 99, 132, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Vue</span>
+          <span style="background: rgba(147, 112, 219, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Databases</span>
+          <span style="background: rgba(255, 205, 86, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">AI/ML</span>
+          <span style="background: rgba(96, 206, 231, 0.6); padding: 0.3em 0.8em; border-radius: 15px; font-size: 0.85em; color: #333;">Cloud Computing</span>
+        </div>
       </header>
 
       <!-- Nav -->
@@ -49,8 +453,9 @@
         <ul>
           <li><a href="#intro" class="active">Introduction</a></li>
           <li><a href="#first">Software Development</a></li>
-          <li><a href="#second">Data Analytics</a></li>
-          <li><a href="#cta">Leadership Activities</a></li>
+          <li><a href="#second">Data Engineering & Analytics</a></li>
+          <li><a href="#design">UI/UX Design</a></li>
+          <li><a href="#cta">Leadership</a></li>
         </ul>
       </nav>
 
@@ -61,25 +466,42 @@
           <div class="spotlight">
             <div class="content">
               <header class="major">
-                <h2>I am ...</h2>
+                <h2 style="font-size: 1.8em; margin-bottom: 0.2em;">👋 Hi, Welcome to My World</h2>
               </header>
-              <p>
-                👩🏻‍🎓 A master's student at the University of Maryland, College
-                Park, with a 3.90 GPA.<br />
-                👩🏻‍💻 A full-stack developer preferring Java for the back end and
-                React for the front end.<br />
-                🦸🏻‍♀️ A Guinness World Record breaker and a one-million-view TEDx
-                event organizer.<br />
-                🧙🏻‍♀️ Eager to utilize my skills and passion to develop innovative
-                real-world solutions.
+              <p style="font-size: 1.05em; line-height: 1.4; margin-bottom: 0.5em;">
+                <span style="font-weight: bold; color: #4acaa8;">💻 Full-Stack Developer</span><br>
+                Skilled in the full software development lifecycle across modern tech stacks.
+                <br><br>
+                
+                <span style="font-weight: bold; color: #4acaa8;">🌐 Cross-Industry Practitioner</span><br>
+                Built end-to-end solutions in AI, healthcare, and enterprise domains.
+                <br><br>
+                
+                <span style="font-weight: bold; color: #4acaa8;">📊 Data & AI Enthusiast</span><br>
+                Experienced in data engineering, analytics, and machine learning solutions.
+                <br><br>
+                
+                <span style="font-weight: bold; color: #4acaa8;">🌟 Record-Breaking Achiever</span><br>
+                Created global impact as a <span class="tooltip">Guinness World Record holder<span class="tooltiptext">It's true! Curious? Let's talk—schedule an interview with me.</span></span> and TEDx organizer.
               </p>
-              <ul class="actions">
-                <li>
-                  <a href="Yujia Wang-SDE-UMD.pdf" class="button">Resume</a>
-                </li>
-              </ul>
             </div>
-            <span class="image"><img src="images/profile1.jpg" alt="" /></span>
+            <span class="image">
+              <video autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 8px;">
+                <source src="images/kitty.mp4" type="video/mp4">
+              </video>
+              <div style="margin-top: 0.3em;">
+                <p style="color: #ff69b4; font-style: italic; margin-bottom: 0;">
+                  <strong style="color: #ff69b4;">My daily routine: coding, reading, and drinking tea.</strong>
+                </p>
+              </div>
+            </span>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 0.3em;">
+            <a href="Yujia Wang-SDE-UMD.pdf" class="button" style="font-size: 0.95em; padding: 0.7em 2em; background-color: #FFB6C1; border-color: #FFB6C1; color: white; border-radius: 25px; box-shadow: 0 4px 8px rgba(255, 182, 193, 0.3); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; min-width: 200px; font-weight: bold; position: relative; overflow: hidden; cursor: pointer; transform-style: preserve-3d; perspective: 1000px;">
+              <span style="margin-right: 8px; transition: transform 0.3s ease;">🎀</span>
+              <span style="position: relative; z-index: 1;">View My Resume</span>
+              <span style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%); transform: translateX(-100%); transition: transform 0.6s ease;"></span>
+            </a>
           </div>
         </section>
 
@@ -88,201 +510,351 @@
           <header class="major">
             <h2>Software Development</h2>
           </header>
-          <ul class="features">
-            <li>
-              <div class="img">
+
+          <!-- Industry Experience -->
+          <div style="margin-bottom: 3em;">
+            <h3 style="color: #4acaa8; margin-bottom: 1.5em; text-align: center;">Industry Experience</h3>
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; justify-items: center;">
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/bosch.png"
+                    alt="Bosch"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>Bosch</h3>
+                  <p style="color: #333;">
+                    Developped the dynamic Annual Sustainability Report 2019.
+                    <br /><br />       
+                    <b style="color: #4acaa8;">Tech Stack:</b> HTML5, CSS3, jQuery, JavaScript
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/headstarter.png"
+                    alt="headstarter"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>HeadStarter AI</h3>
+                  <p style="color: #333;">
+                    Developed 6 full-stack AI applications in a fast-paced, team-based environment.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> ReactJS, NextJS, Firebase, OpenAI, AWS
+                  </p>
+                </div>
+              </div>
+
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/amtrak.svg"
+                    alt="Amtrak Capstone"
+                    style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>Amtrak</h3>
+                  <p style="color: #333;">
+                    Led a team to build an automated email retention system using Microsoft Purview. <br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> Python, Microsoft Purview, Exchange, NLP
+                  </p>
+                </div>
+              </div>
+<div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                 <img
-                  src="images/voiceout.gif"
-                  width="800px"
-                  height="400px"
-                  alt="voice out"
+                  src="images/abbott.png"
+                  alt="Abbott"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"
                 />
               </div>
               <div class="text-content">
-                <h3>Voice Out</h3>
-                <p>
-                  A mobile application dedicated to making mental health support
-                  engaging for everyone.<br />
-                  The personalized AI pet interactions offer daily
-                  companionship, taking care of mental healing at every
-                  moment.<br />
-                  <b>Tech Stack:</b> Swift, Java, Redis, MongoDB, Figma
+                <h3>Abbott</h3>
+                <p style="color: #333;">
+                  Performed exploratory data analysis to optimize e-commerce marketing strategy.<br />
+                  <br />
+                  <b style="color: #4acaa8;">Tech Stack:</b> SQL, Python, Power BI, Azure ML
                 </p>
+               
               </div>
-            </li>
-            <p />
-            <p />
-            <li>
-              <div image>
-                <img
-                  src="images/student.gif"
-                  width="800px"
-                  height="400px"
-                  alt="student achivement management system"
-                />
+            </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/fytech.jpg"
+                    alt="FYTech"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>FYTech</h3>
+                  <p style="color: #333;">
+                    Developed a microservices-based event management platform.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> Java, Spring Boot, Vue, MySQL, Redis, OAuth 2.0, Jenkins, Gradle, Postman, Swagger
+                  </p>
+                </div>
               </div>
-              <div class="text-content">
-                <h3>Student Grade Management</h3>
-                <p>
-                  A full-stack course and grade management system designed to
-                  streamline the administration, <br />management, and analysis
-                  of educational courses and students' grades.
-                  <b>Tech Stack:</b> SpringBoot, Vue, MySQL
-                </p>
+
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/voiceout.gif"
+                    alt="voice out"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>Voice Out</h3>
+                  <p style="color: #333;">
+                    Developed an iOS mental health app with AI-powered pet interactions.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> Swift, Express.js, MongoDB, Redis, AWS, Docker, Kubernetes, Figma
+                  </p>
+                </div>
               </div>
-            </li>
-            <li>
-              <div image>
-                <img
-                  src="images/ticketgo.gif"
-                  alt="ticketgo service figma"
-                  width="200px"
-                  height="400px"
-                />
+            </div>
+          </div>
+
+          <!-- Section Divider -->
+          <div class="section-divider"></div>
+
+          <!-- Featured Projects -->
+          <div>
+            <h3 style="color: #4acaa8; margin-bottom: 1.5em; text-align: center;">Featured Projects</h3>
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em;">
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/student.gif"
+                    alt="student achivement management system"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>Student Grade Management</h3>
+                  <p style="color: #333;">
+                    Full-stack management system for courses and grades.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> Java, SpringBoot, Vue, MySQL, Maven
+                  </p>
+                  <a href="https://github.com/vivianw969/Academic-Performance-Management-System" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                    <i class="icon brands fa-github"></i>
+                    View on GitHub
+                  </a>
+                </div>
               </div>
-              <div class="text-content">
-                <h3>TicketGo</h3>
-                <p>
-                  An improved ticketing service platform that addresses the
-                  common challenges<br />
-                  associated with existing ticketing service platforms. <br />
-                  <b>Tech Stack:</b> Figma
-                </p>
+
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div class="img">
+                  <video autoplay loop muted playsinline>
+                    <source src="images/dnd.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="text-content">
+                  <h3>DnD AI Roleplay Game</h3>
+                  <p style="color: #333;">
+                    AI-powered roleplay game inspired by Dungeons & Dragons.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> React, Node.js, Supabase, OpenAI API
+                  </p>
+                  <a href="https://github.com/vivianw969/dnd-game" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                    <i class="icon brands fa-github"></i>
+                    View on GitHub
+                  </a>
+                </div>
               </div>
-            </li>
-            <li>
-              <span
-                ><img
-                  src="images/boschusa_logo.jpeg"
-                  alt="Bosch"
-                  class="icon solid major style1 fa-code"
-                  height="250px"
-                  width="250px"
-              /></span>
-              <div class="text-content">
-                <h3>Bosch Sustainability Report</h3>
-                <p>
-                  The dynamic and browser-compatible pages for the Annual
-                  Sustainability Report 2019.<br />
-                  <b>Tech Stack:</b> HTML5, CSS3, jQuery, JavaScript
-                </p>
+
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                  <img
+                    src="images/rmp.png"
+                    alt="Rate My Professor"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
+                  />
+                </div>
+                <div class="text-content">
+                  <h3>RAG-Based SearchBar</h3>
+                  <p style="color: #333;">
+                    Context-aware AI tool powered by Retrieval-Augmented Generation.<br />
+                    <br />
+                    <b style="color: #4acaa8;">Tech Stack:</b> Next.js, OpenAI API, Pinecone, Vercel
+                  </p>
+                  <a href="https://github.com/vivianw969/rmp-ai-assistant" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                    <i class="icon brands fa-github"></i>
+                    View on GitHub
+                  </a>
+                </div>
               </div>
-            </li>
-            <li>
-              <span
-                ><img
-                  src="images/headstarter.png"
-                  alt="headstarter"
-                  class="icon solid major style1 fa-code"
-                  height="250px"
-                  width="250px"
-                />
-              </span>
-              <div class="text-content">
-                <h3>HeadStarter AI</h3>
-                <p>
-                  6 full-stack projects: Pantry Tracker, AI Customer Support, AI
-                  Flashcards & Stripe, AI Rate My Professor... <br />
-                  <b>Tech Stack:</b> ReactJS, NextJS, Firebase, OpenAI, AWS,
-                  StripeAPI
-                </p>
-              </div>
-            </li>
-          </ul>
-          <!-- <footer class="major">
-            <ul class="actions special">
-              <li><a href="generic.html" class="button">Learn More</a></li>
-            </ul>
-          </footer>
-          -->
+            </div>
+          </div>
         </section>
 
         <!-- Second Section -->
         <section id="second" class="main special">
           <header class="major">
-            <h2>Data Analytics</h2>
+            <h2>Data Engineering & Analytics</h2>
           </header>
-          <ul class="features">
-            <li>
-              <!---<span class="icon major style3 fa-copy"></span>-->
-              <div class="img">
+          <div class="features-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; justify-items: center;">
+            
+
+            <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img
+                  src="images/under-construction.jpg"
+                  alt="project under construction"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"
+                />
+              </div>
+              <div class="text-content">
+                <h3>MovieLens Data Pipeline </h3>
+                <p style="color: #333;">
+                  Automated ETL pipeline for real-time movie data ingestion and analysis.
+                  <br />
+                  <br />
+                  <b style="color: #4acaa8;">Tech Stack:</b> Python, Google Cloud Functions, Pub/Sub, BigQuery, Shell Scripting
+                </p>
+                <a href="https://github.com/Prof-Drake-UMD/INST767-Sp25/tree/main/Yujia_Wang" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                  <i class="icon brands fa-github"></i>
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                 <img
                   src="bank-da.gif"
-                  width="800px"
-                  height="400px"
                   alt="bank marketing da"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"
                 />
               </div>
               <div class="text-content">
                 <h3>Bank Marketing Data Analysis</h3>
-                <p>
-                  Using machine learning models to predict if a customer will
-                  subscribe (yes/no) to a term deposit<br />
-                  based on the existing record from a Portuguese banking
-                  institution.
+                <p style="color: #333;">
+                  ML-based prediction of customer subscription to term deposits.
+                  <br />
+                  <br />
+                  <b style="color: #4acaa8;">Tech Stack:</b> Python, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn, Jupyter Notebook
+                </p>
+                <a href="https://github.com/vivianw969/bank_marketing_da" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                  <i class="icon brands fa-github"></i>
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <img
+                  src="images/powerbi.gif"
+                  alt="PowerBI dashboards"
+                  style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;"
+                />
+              </div>
+              <div class="text-content">
+                <h3>Developer Job Market Insight</h3>
+                <p style="color: #333;">
+                 End-to-end data pipeline and Power BI dashboards for job market insights.<br />
+                  <br />
+                  <b style="color: #4acaa8;">Tech Stack:</b> Power BI, Microsoft SQL Server, Azure Data Factory, Azure SQL Database
+                </p>
+                 <a href="https://github.com/vivianw969/sde-job-analysis" class="button" style="font-size: 0.85em; padding: 0.5em 1.2em; background-color: #4acaa8; border-color: #4acaa8; color: white; border-radius: 20px; box-shadow: 0 2px 4px rgba(74, 202, 168, 0.2); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.5em;">
+                  <i class="icon brands fa-github"></i>
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- UI/UX Design Section -->
+        <section id="design" class="main special">
+          <header class="major">
+            <h2>UI/UX Design</h2>
+          </header>
+          <div class="features-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em;">
+            <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: auto; min-height: 400px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f8f8; border-radius: 8px;">
+                <img
+                  src="images/ticketgo.gif"
+                  alt="ticketgo service figma"
+                  style="width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 8px;"
+                />
+              </div>
+              <div class="text-content">
+                <h3>TicketGo</h3>
+                <p style="color: #333;">
+                  An improved ticketing platform with smoother workflows and quicker access to support. <br />
                 </p>
               </div>
-            </li>
-            <!--
-            <li>
-              <span class="icon major style5 fa-gem"></span>
-              <h3>Strategic Insights into NYC's Airbnb Market</h3>
-              <p>
-                Evaluating Room Types, Neighborhoods, and Price Ranges for
-                Optimal Investment in New York City.
-              </p>
-            </li>
--->
-          </ul>
+            </div>
+
+            <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+              <div class="img" style="width: 100%; margin-bottom: 1em; height: auto; min-height: 400px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f8f8; border-radius: 8px;">
+                <img
+                  src="images/fitness.gif"
+                  alt="fitness"
+                  style="width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 8px;"
+                />
+              </div>
+              <div class="text-content">
+                <h3>MyFitnessPal</h3>
+                <p style="color: #333;">
+                  A redesigned MyFitnessPal dashboard with intuitive visualizations and streamlined health tracking.<br />
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- Section 3 -->
         <section id="cta" class="main special">
           <header class="major">
             <h2>Leadership Activities</h2>
-            <span>
-              <img
-                src="images/TED.png"
-                alt="TED"
-                width="800px"
-                height="350px"
-              />
-            </span>
-            <ul class="statistics">
-              <li class="style1">
-                <span class="icon solid fa-laptop"></span>
-                <strong>100,000,000+</strong> Online Views
-              </li>
-              <li class="style2">
-                <span class="icon solid fa-user"></span>
-                <strong>250+</strong> Staff Members
-              </li>
-              <li class="style3">
-                <span class="icon solid fa-signal"></span>
-                <strong>20+</strong> Media Partners
-              </li>
-              <li class="style4">
-                <span class="icon solid fa-gem"></span>
-                <strong>100%</strong> Attendance Rate
-              </li>
-            </ul>
-            <p>
+            <div style="position: relative; width: 80%; max-width: 1000px; margin: 2em auto;">
+              <div id="ted-slideshow" style="position: relative; width: 100%; height: 400px; overflow: hidden; border-radius: 8px;">
+                <img src="images/TED.png" alt="TED" style="width: 100%; height: 100%; object-fit: contain; position: absolute; opacity: 1; transition: opacity 0.5s ease;" />
+                <img src="images/ted2.jpg" alt="TED2" style="width: 100%; height: 100%; object-fit: contain; position: absolute; opacity: 0; transition: opacity 0.5s ease;" />
+                <img src="images/ted3.jpeg" alt="TED3" style="width: 100%; height: 100%; object-fit: contain; position: absolute; opacity: 0; transition: opacity 0.5s ease;" />
+                <span onclick="changeSlide(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #c71818; cursor: pointer; font-size: 32px; transition: all 0.3s ease; z-index: 2;">❮</span>
+                <span onclick="changeSlide(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #c71585; cursor: pointer; font-size: 32px; transition: all 0.3s ease; z-index: 2;">❯</span>
+              </div>
+            </div>
+            <div style="width: 80%; max-width: 1000px; margin: 0 auto;">
+              <ul class="statistics">
+                <li class="style1">
+                  <span class="icon solid fa-laptop"></span>
+                  <strong>100,000,000+</strong> Online Views
+                </li>
+                <li class="style2">
+                  <span class="icon solid fa-user"></span>
+                  <strong>250+</strong> Staff Members
+                </li>
+                <li class="style3">
+                  <span class="icon solid fa-signal"></span>
+                  <strong>20+</strong> Media Partners
+                </li>
+                <li class="style4">
+                  <span class="icon solid fa-gem"></span>
+                  <strong>100%</strong> Attendance Rate
+                </li>
+              </ul>
+            </div>
+            <p style="font-size: 1.1em; line-height: 1.6; color: #666; max-width: 800px; margin: 1em auto;">
               As the co-organizor, I led a team of more than 250 people to
               launch the first offical TEDx event in Hangzhou which spearheaded
               cross-discipline exploration for young people.
             </p>
           </header>
-
-          <!-- 
-          <footer class="major">
-            <ul class="actions special">
-              <li>
-                <a href="generic.html" class="button primary">Get Started</a>
-              </li>
-              <li><a href="generic.html" class="button">Learn More</a></li>
-            </ul>
-          </footer>
-          -->
         </section>
       </div>
 
@@ -298,7 +870,7 @@
             <dd>(000) 000-0000 x 0000</dd>
             -->
             <dt>Email</dt>
-            <dd><a href="#">ywang521@umd.edu</a></dd>
+            <dd><a href="#" onclick="copyEmail(event)">vivianwang969@gmail.com</a></dd>
           </dl>
           <ul class="icons">
             <li>
@@ -339,6 +911,11 @@
       </footer>
     </div>
 
+    <!-- Easter Egg Message -->
+    <div id="easter-egg">
+      🔮 Thanks for scrolling! Here's a fun fact: I read tarot<br/>and it tells me you're lucky today.
+    </div>
+
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
@@ -347,5 +924,165 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      // Copy email function
+      function copyEmail(event) {
+        event.preventDefault();
+        const email = 'vivianwang969@gmail.com';
+        navigator.clipboard.writeText(email).then(() => {
+          const link = event.target;
+          const originalText = link.textContent;
+          link.textContent = 'Copied!';
+          link.style.color = '#4acaa8';
+          setTimeout(() => {
+            link.textContent = originalText;
+            link.style.color = '';
+          }, 2000);
+        });
+      }
+
+      // TED Slideshow functionality
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('#ted-slideshow img');
+
+      function showSlide(n) {
+        slides.forEach(slide => slide.style.opacity = '0');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].style.opacity = '1';
+      }
+
+      function changeSlide(direction) {
+        showSlide(currentSlide + direction);
+      }
+
+      // Add hover effects for arrows
+      const arrows = document.querySelectorAll('#ted-slideshow span');
+      arrows.forEach(arrow => {
+        arrow.addEventListener('mouseover', () => {
+          arrow.style.color = '#ff1493';
+          arrow.style.transform = 'translateY(-50%) scale(1.2)';
+        });
+        arrow.addEventListener('mouseout', () => {
+          arrow.style.color = '#c71585';
+          arrow.style.transform = 'translateY(-50%) scale(1)';
+        });
+      });
+
+      // Random quote functionality
+      const quotes = [
+        "Why do programmers prefer dark mode? Because light attracts bugs!",
+        "Why did the programmer quit their job? They didn't get arrays (a raise)!",
+        "How many programmers does it take to change a light bulb? None, that's a hardware problem!",
+        "Why was the JavaScript developer sad? Because they didn't know how to 'null' their feelings!",
+        "What do you call a computer that sings? A Dell!",
+        "Why did the developer go broke? Because they used up all their cache!",
+        "What's a programmer's favorite hangout place? The Foo Bar!",
+        "Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25!",
+        "How do you know if a programmer is extroverted? They look at your shoes when talking to you!",
+        "Why did the programmer get stuck in the shower? The instructions said: lather, rinse, repeat!"
+      ];
+
+      function updateQuote() {
+        const quoteElement = document.getElementById('random-quote');
+        const container = quoteElement.parentElement;
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        
+        // Add hover effect
+        container.style.transform = 'scale(1.02)';
+        container.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+        
+        quoteElement.style.opacity = '0';
+        
+        // Create floating emoji
+        const emojis = ['💗', '👍', '🤭', '😂', '🤣'];
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        const emojiElement = document.createElement('div');
+        emojiElement.textContent = randomEmoji;
+        emojiElement.style.position = 'absolute';
+        emojiElement.style.left = '80%';
+        emojiElement.style.top = '50%';
+        emojiElement.style.transform = 'translate(-50%, -50%)';
+        emojiElement.style.fontSize = '2em';
+        emojiElement.style.opacity = '0';
+        emojiElement.style.transition = 'all 0.5s ease';
+        container.appendChild(emojiElement);
+        
+        // Animate emoji
+        setTimeout(() => {
+          emojiElement.style.opacity = '1';
+          emojiElement.style.transform = 'translate(-50%, -150%)';
+        }, 50);
+        
+        setTimeout(() => {
+          quoteElement.textContent = randomQuote;
+          quoteElement.style.opacity = '1';
+          
+          // Remove emoji
+          emojiElement.style.opacity = '0';
+          setTimeout(() => {
+            container.removeChild(emojiElement);
+          }, 500);
+          
+          // Reset hover effect
+          setTimeout(() => {
+            container.style.transform = 'scale(1)';
+            container.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+          }, 300);
+        }, 300);
+      }
+
+      // Add hover effect
+      const quoteContainer = document.querySelector('.quote-container');
+      quoteContainer.addEventListener('mouseover', () => {
+        quoteContainer.style.transform = 'scale(1.02)';
+        quoteContainer.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+      });
+      
+      quoteContainer.addEventListener('mouseout', () => {
+        quoteContainer.style.transform = 'scale(1)';
+        quoteContainer.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+      });
+
+      // Initial quote
+      updateQuote();
+
+      // Add toggle functionality
+      function toggleQuoteBox(event) {
+        event.stopPropagation(); // Prevent quote update when clicking close button
+        const quoteBox = document.getElementById('quote-box');
+        if (quoteBox.style.display === 'none') {
+          quoteBox.style.display = 'block';
+          updateQuote();
+        } else {
+          quoteBox.style.display = 'none';
+        }
+      }
+
+      // Add hover effect for close button
+      const closeButton = document.querySelector('.quote-container span');
+      closeButton.addEventListener('mouseover', () => {
+        closeButton.style.opacity = '1';
+      });
+      
+      closeButton.addEventListener('mouseout', () => {
+        closeButton.style.opacity = '0.7';
+      });
+
+      // Easter Egg functionality
+      let easterEggShown = false;
+      
+      window.addEventListener('scroll', function() {
+        if (!easterEggShown && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+          const easterEgg = document.getElementById('easter-egg');
+          easterEgg.classList.add('show');
+          easterEggShown = true;
+          
+          // Hide after 5 seconds
+          setTimeout(() => {
+            easterEgg.classList.remove('show');
+          }, 5000);
+        }
+      });
+    </script>
   </body>
 </html>
