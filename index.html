@@ -395,6 +395,34 @@
         font-size: 0.9em;
         padding: 0.5em 0.3em;
       }
+
+      /* Emoji Rain Animation */
+      @keyframes falling {
+        0% {
+          transform: translateY(-20px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .emoji-rain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .falling-emoji {
+        position: absolute;
+        font-size: 24px;
+        animation: falling 2s linear forwards;
+      }
     </style>
   </head>
   <body class="is-preload">
@@ -1087,6 +1115,43 @@
             easterEgg.classList.remove('show');
           }, 5000);
         }
+      });
+
+      // Emoji rain functionality
+      function createEmojiRain() {
+        const emojis = ['✨', '💖', '🌟', '🎀', '🌸', '💫', '💝', '🌙', '💐', '🌷'];
+        const emojiRain = document.createElement('div');
+        emojiRain.className = 'emoji-rain';
+        document.body.appendChild(emojiRain);
+
+        // Create emojis across the entire width of the page
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.className = 'falling-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            // Random position across the entire width
+            emoji.style.left = `${Math.random() * window.innerWidth}px`;
+            emoji.style.top = '0px';
+            emojiRain.appendChild(emoji);
+
+            // Remove emoji after animation
+            setTimeout(() => {
+              emoji.remove();
+            }, 2000);
+          }, i * 50); // Reduced delay between emojis to fit within 2 seconds
+        }
+
+        // Remove container after all emojis are gone
+        setTimeout(() => {
+          emojiRain.remove();
+        }, 2500);
+      }
+
+      // Start emoji rain when page loads
+      window.addEventListener('load', () => {
+        // Single rain effect
+        createEmojiRain();
       });
     </script>
   </body>
